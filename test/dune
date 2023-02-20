@@ -1,2 +1,4 @@
 (test
- (name binary_tree))
+ (name bitree)
+ (modules bitree)
+ (libraries ounit2 qcheck bitree))
