@@ -2,6 +2,7 @@ open! OUnit2
 open! QCheck
 open! Bitree
 
+(* validation of binary tree *)
 let rec isBitreeValid = function
   | Leaf -> true
   | Node (curr, l, r) ->
@@ -25,6 +26,7 @@ let association =
         (Bitree.merge (Bitree.merge a b) c)
         (Bitree.merge a (Bitree.merge b c)) )
 
+(* insert element retains binary tree*)
 let insertToBitree =
   QCheck.Test.make ~count:1000 ~name:"insert bitree "
     QCheck.(pair small_nat (list small_nat))
@@ -33,8 +35,9 @@ let insertToBitree =
       let tree_insert = Bitree.insert to_insert tree in
       isBitreeValid tree && isBitreeValid tree_insert )
 
+(* erase element retains binary tree*)
 let eraseToBitree =
-  QCheck.Test.make ~count:1000 ~name:"insert bitree "
+  QCheck.Test.make ~count:1000 ~name:"erase bitree "
     QCheck.(list small_nat)
     (fun v_list ->
       let tree = Bitree.fromList v_list in
@@ -45,6 +48,7 @@ let eraseToBitree =
       in
       isBitreeValid tree && isBitreeValid tree_erase )
 
+(* merge with empty retains tree unchanged *)
 let mergeEmpty =
   QCheck.Test.make ~count:1000 ~name:"merge empty"
     QCheck.(list small_nat)
@@ -54,6 +58,9 @@ let mergeEmpty =
       let right = Bitree.merge Bitree.empty tree in
       Bitree.isSame tree left && Bitree.isSame tree right )
 
-let () =
-  QCheck_runner.run_tests_main
-    [association; mergeEmpty; insertToBitree; eraseToBitree]
+let _ =
+  let open OUnit in
+  run_test_tt_main
+    ( "tests"
+    >::: List.map QCheck_ounit.to_ounit_test
+           [association; mergeEmpty; insertToBitree; eraseToBitree] )

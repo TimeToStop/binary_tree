@@ -1,4 +1,9 @@
 (test
- (name bitree)
- (modules bitree)
+ (name property)
+ (modules property)
  (libraries ounit2 qcheck bitree))
+
+(test
+ (name unit)
+ (modules unit)
+ (libraries ounit2 bitree))
