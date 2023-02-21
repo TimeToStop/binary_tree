@@ -2,8 +2,6 @@ open! OUnit2
 open! QCheck
 open! Bitree
 
-(* association of merge *)
-
 let rec isBitreeValid = function
   | Leaf -> true
   | Node (curr, l, r) ->
@@ -15,6 +13,7 @@ let rec isBitreeValid = function
       in
       isBitreeValid l && isBitreeValid r && leftIsSmaller && rightIsBigger
 
+(* association of merge *)
 let association =
   QCheck.Test.make ~count:1000 ~name:"association of merge "
     QCheck.(triple (list small_nat) (list small_nat) (list small_nat))
