@@ -28,7 +28,7 @@ jobs:
         opam install ocamlformat
         opam install qcheck
     - name: Lint
-      run: opam exec -- dune fmt
+      run: opam exec -- dune build @fmt
     - name: Build
       run: opam exec -- dune build
     - name: Test
