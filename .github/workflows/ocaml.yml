@@ -22,15 +22,14 @@ jobs:
         ocaml-compiler: 4.14.x
     - name: Install
       run: | 
-        eval $(opam config env)
         opam install dune
         opam install -t . --deps-only
         opam install ounit2.2.2.6
         opam install ocamlformat
         opam install qcheck
     - name: Lint
-      run: dune fmt
+      run: opam exec -- dune fmt
     - name: Build
-      run: dune build
+      run: opam exec -- dune build
     - name: Test
-      run: dune runtest
+      run: opam exec -- dune runtest
