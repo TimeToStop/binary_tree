@@ -28,7 +28,7 @@ jobs:
         opam install ocamlformat
         opam install qcheck
     - name: Lint
-      run: opam exec -- dune build @fmt
+      run: opam exec -- dune fmt --action-stdout-on-success=swallow --action-stderr-on-success=must-be-empty
     - name: Build
       run: opam exec -- dune build
     - name: Test
