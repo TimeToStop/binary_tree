@@ -1,9 +1,4 @@
 (library
  (name bitree)
  (public_name bitree)
- (modules bitree))
-
-(library
- (name test)
- (public_name test)
- (modules test))
+ (modules bitree test))
