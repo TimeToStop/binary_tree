@@ -1,4 +1,4 @@
 (library
  (name bitree)
  (public_name bitree)
- (modules impl))
+ (modules bitree))
