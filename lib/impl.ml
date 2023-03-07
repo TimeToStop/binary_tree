@@ -1,1 +1,1 @@
-let call x = x * x;
+let call x = x * x
