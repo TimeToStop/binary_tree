@@ -1,5 +1,5 @@
 open! OUnit2
-open! Bitree
+open Bitree
 
 (* sum of list elements *)
 let rec sum = function [] -> 0 | head :: tail -> head + sum tail
