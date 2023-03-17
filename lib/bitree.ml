@@ -10,7 +10,6 @@ let rec insert value = function
   | Node (curr, l, r) when value = curr -> Node (curr, l, r)
   | Node (curr, l, r) -> Node (curr, l, insert value r)
 
-
 let rec contains value = function
   | Leaf -> false
   | Node (curr, l, _) when value < curr -> contains value l

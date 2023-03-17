@@ -65,10 +65,10 @@ let stringTest =
     (fun x_list ->
       let tree = Bitree.fromList x_list in
       let rec contains = function
-      | head :: tail -> Bitree.contains head tree && contains tail
-      | [] -> true
+        | head :: tail -> Bitree.contains head tree && contains tail
+        | [] -> true
       in
-      contains x_list)
+      contains x_list )
 
 (* float binary string *)
 let floatTest =
@@ -77,14 +77,19 @@ let floatTest =
     (fun x_list ->
       let tree = Bitree.fromList x_list in
       let rec contains = function
-      | head :: tail -> Bitree.contains head tree && contains tail
-      | [] -> true
+        | head :: tail -> Bitree.contains head tree && contains tail
+        | [] -> true
       in
-      contains x_list)
+      contains x_list )
 
 let _ =
   let open OUnit in
   run_test_tt_main
     ( "tests"
     >::: List.map QCheck_ounit.to_ounit_test
-           [association; mergeEmpty; insertToBitree; eraseToBitree; stringTest; floatTest] )
+           [ association
+           ; mergeEmpty
+           ; insertToBitree
+           ; eraseToBitree
+           ; stringTest
+           ; floatTest ] )
