@@ -58,9 +58,33 @@ let mergeEmpty =
       let right = Bitree.merge Bitree.empty tree in
       Bitree.isSame tree left && Bitree.isSame tree right )
 
+(* string binary tree *)
+let stringTest =
+  QCheck.Test.make ~count:1000 ~name:"string test"
+    QCheck.(list small_string)
+    (fun x_list ->
+      let tree = Bitree.fromList x_list in
+      let rec contains = function
+      | head :: tail -> Bitree.contains head tree && contains tail
+      | [] -> true
+      in
+      contains x_list)
+
+(* float binary string *)
+let floatTest =
+  QCheck.Test.make ~count:1000 ~name:"float test"
+    QCheck.(list float)
+    (fun x_list ->
+      let tree = Bitree.fromList x_list in
+      let rec contains = function
+      | head :: tail -> Bitree.contains head tree && contains tail
+      | [] -> true
+      in
+      contains x_list)
+
 let _ =
   let open OUnit in
   run_test_tt_main
     ( "tests"
     >::: List.map QCheck_ounit.to_ounit_test
-           [association; mergeEmpty; insertToBitree; eraseToBitree] )
+           [association; mergeEmpty; insertToBitree; eraseToBitree; stringTest; floatTest] )

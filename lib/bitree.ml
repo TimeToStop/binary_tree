@@ -7,14 +7,15 @@ let rec size = function Leaf -> 0 | Node (_, l, r) -> 1 + size l + size r
 let rec insert value = function
   | Leaf -> Node (value, Leaf, Leaf)
   | Node (curr, l, r) when value < curr -> Node (curr, insert value l, r)
-  | Node (curr, l, r) when value > curr -> Node (curr, l, insert value r)
-  | Node (curr, l, r) -> Node (curr, l, r)
+  | Node (curr, l, r) when value = curr -> Node (curr, l, r)
+  | Node (curr, l, r) -> Node (curr, l, insert value r)
+
 
 let rec contains value = function
   | Leaf -> false
   | Node (curr, l, _) when value < curr -> contains value l
-  | Node (curr, _, r) when value > curr -> contains value r
-  | Node (_, _, _) -> true
+  | Node (curr, _, _) when value = curr -> true
+  | Node (_, _, r) -> contains value r
 
 let rec min = function
   | Leaf -> failwith "Called on empty tree"
@@ -33,8 +34,8 @@ let rec mergeAfterTopErase l r =
 and erase value = function
   | Leaf -> Leaf
   | Node (curr, l, _) when value < curr -> erase value l
-  | Node (curr, _, r) when value > curr -> erase value r
-  | Node (_, l, r) -> mergeAfterTopErase l r
+  | Node (curr, l, r) when value = curr -> mergeAfterTopErase l r
+  | Node (_, _, r) -> erase value r
 
 let rec filter f = function
   | Leaf -> Leaf
